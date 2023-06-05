@@ -1,0 +1,61 @@
+# If the matrix rotated in clockwise direction only once
+
+#include <bits/stdc++.h>
+
+void rotateMatrix(vector<vector<int>> &mat, int n, int m)
+{
+    // Write your code here
+    int top=0;
+    int down=n-1;
+    int left=0;
+    int right=m-1;
+    int d=0;
+    int val;
+    while(top<down && left<right){
+        val = mat[top][left];
+        for(int i=left+1;i<=right;i++){
+            swap(val,mat[top][i]);
+        }
+        top++;
+
+        for(int i=top;i<=down;i++){
+            swap(val,mat[i][right]);
+        }
+        right--;
+
+        for(int i=right;i>=left;i--){
+            swap(val,mat[down][i]);
+        }
+        down--;
+
+        for(int i=down;i>=top;i--){
+            swap(val,mat[i][left]);
+        }
+        left++;
+        
+        mat[top-1][left-1] = val;
+    }
+}
+
+
+# rotate the image by 90 degrees (clockwise).
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        // transpose a matrix 
+        for(int i=0;i<n;i++){
+            for(int j=i;j<m;j++){
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+
+        // reverse each row
+        for(int i=0;i<n;i++){
+            reverse(matrix[i].begin(),matrix[i].end());
+        }
+    }
+};
