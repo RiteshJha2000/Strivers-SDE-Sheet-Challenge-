@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+vector<vector<int>> mergeIntervals(vector<vector<int>> &intervals)
+{
+    // Write your code here.
+    sort(intervals.begin(),intervals.end());
+    vector<vector<int>>ans;
+    vector<int>v;
+    v.push_back(intervals[0][0]);
+    v.push_back(intervals[0][1]);
+    for(int i=1;i<intervals.size();i++){
+        if(v[1]>=intervals[i][0]){
+            int num = max(intervals[i][1],v[v.size()-1]);
+            v.pop_back();
+            v.push_back(num);
+        }
+        else{
+            ans.push_back(v);
+            v.clear();
+            v.push_back(intervals[i][0]);
+            v.push_back(intervals[i][1]);
+        }
+    }
+    ans.push_back(v);
+    return ans;
+}
