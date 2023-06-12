@@ -1,0 +1,68 @@
+/**
+ * Definition of linked list:
+ *
+ * class Node {
+ * public:
+ *      int data;
+ *      Node *next;
+ *      Node() {
+ *          this->data = 0;
+ *          this->next = NULL;
+ *      }
+ *      Node(int data) {
+ *          this->data = data;
+ *          this->next = NULL;
+ *      }
+ *      Node (int data, Node *next) {
+ *          this->data = data;
+ *          this->next = next;
+ *      }
+ * };
+ *
+ *************************************************************************/
+
+Node *addTwoNumbers(Node *num1, Node *num2)
+{
+    // Write your code here.
+    Node* t1 = num1;
+    Node* t2 = num2;
+    int carry = 0;
+    Node* head = new Node();
+    Node* temp = head;
+
+    while(t1 && t2){
+        int val = t1->data + t2->data;
+        Node* node = new Node((val + carry)%10);
+        carry = (val + carry)/10;
+
+        temp->next=node;
+        temp=temp->next;
+        t1=t1->next;
+        t2=t2->next;
+    }
+
+    while(t1){
+        int val = t1->data;
+        Node* node = new Node((val + carry)%10);
+        carry = (val + carry)/10;
+
+        temp->next=node;
+        temp=temp->next;
+        t1=t1->next;
+    }
+    while(t2){
+        int val = t2->data;
+        Node* node = new Node((val + carry)%10);
+        carry = (val + carry)/10;
+
+        temp->next=node;
+        temp=temp->next;
+        t2=t2->next;
+    }
+    if(carry){
+        Node* node = new Node(carry);
+        temp->next=node;
+        temp=temp->next;
+    }
+    return head->next;
+}
