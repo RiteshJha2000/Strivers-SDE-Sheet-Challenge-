@@ -21,18 +21,25 @@
 
 void deleteNode(LinkedListNode<int> * node) {
     // Write your code here.
-    if(!node) return;
-    LinkedListNode<int> * prev = NULL;
-    LinkedListNode<int> * temp = node->next;
-    while(temp){
-        // swap
-        int val = node->data;
-        node->data = temp->data;
-        temp->data = val;
+    // TC -> O(N)  
+    // if(!node) return;
+    // LinkedListNode<int> * prev = NULL;
+    // LinkedListNode<int> * temp = node->next;
+    // while(temp){
+    //     // swap
+    //     int val = node->data;
+    //     node->data = temp->data;
+    //     temp->data = val;
 
-        prev = node;
-        node = node->next;
-        temp = temp->next;
-    }
-    prev->next = NULL;
+    //     prev = node;
+    //     node = node->next;
+    //     temp = temp->next;
+    // }
+    // prev->next = NULL;
+
+    // SC -> O(1)
+    if(!node) return;
+    node->data = node->next->data;
+    // delete node next
+    node->next = node->next->next;
 }
