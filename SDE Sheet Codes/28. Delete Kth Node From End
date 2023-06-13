@@ -36,25 +36,47 @@ int length(Node* head){
 Node* removeKthNode(Node* head, int K)
 {
     // Write your code here.
-    if(!head) return NULL;
-    int n = length(head);
-    int k = n-K;
-    if(k==0){
-        // Remove head
-        Node* temp = head;
-        head = head->next;
-        temp->next = NULL;
-        return head;
-    }
+    // TC -> O(2N) SC->O(1)
+    // if(!head) return NULL;
+    // int n = length(head);
+    // int k = n-K;
+    // if(k==0){
+    //     // Remove head
+    //     Node* temp = head;
+    //     head = head->next;
+    //     temp->next = NULL;
+    //     return head;
+    // }
     
-    Node* prev = NULL;
-    Node* curr = head;
-    while(k-- && curr){
-        prev = curr;
-        curr = curr->next;
+    // Node* prev = NULL;
+    // Node* curr = head;
+    // while(k-- && curr){
+    //     prev = curr;
+    //     curr = curr->next;
+    // }
+
+    // prev->next=curr->next;
+    // curr->next=NULL;
+    // return head;
+
+    // TC -> O(N)  SC->O(1)
+    if(!head) return NULL;
+    Node* start = new Node();
+    start->next = head;
+    Node* fast = start;
+    Node* slow = start;
+
+    while(K--){
+        fast = fast->next;
     }
 
-    prev->next=curr->next;
-    curr->next=NULL;
-    return head;
+    while(fast->next){
+        slow = slow->next;
+        fast = fast->next;
+    }
+
+    slow->next = slow->next->next;
+
+    return start->next;
+
 }
