@@ -1,0 +1,86 @@
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+
+*****************************************************************/
+
+int length(Node* head){
+    int i=0;
+    while(head){
+        head = head->next;
+        i++;
+    }
+    return i;
+}
+
+Node* findIntersection(Node *firstHead, Node *secondHead)
+{
+    //Write your code here
+    // TC -> O(2max(length of list1,length of list2))+O(abs(length of list1-length of list2))+O(min(length of list1,length of list2))
+    // int l1 = length(firstHead);
+    // int l2 = length(secondHead);
+
+    // int diff = abs(l1-l2);
+
+    // Node* t1;
+    // Node* t2;
+    // if(l1>l2){
+    //     t1 = firstHead;
+    //     t2 = secondHead;
+    // }
+    // else{
+    //     t1 = secondHead;
+    //     t2 = firstHead;
+    // }
+
+    // while(diff--){
+    //     t1 = t1->next;
+    // }
+
+    // // now t1 and t2 are at same distance from tail
+    // while(t1 && t2){
+    //     if(t1->next == t2->next){
+    //         return t1->next;
+    //     }
+    //     t1 = t1->next;
+    //     t2 = t2->next;
+    // }
+
+    // // if no intersection
+    // return NULL;
+
+    // TC -> O(2*max(length of list1,length of list2))
+    Node* d1 = firstHead;
+    Node* d2 = secondHead;
+
+    while(d1!=d2){
+        if(!d1) d1 = secondHead;
+        if(!d2) d2 = firstHead;
+        d1 = d1->next;
+        d2 = d2->next;
+    }
+
+    return d1;
+}
