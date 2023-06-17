@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+Node* ReverseK(Node* head,int k){
+	Node* curr = head;
+	Node* curr1 = head;
+	Node* prev = NULL;
+	Node* nxt;
+	while(curr && k--){
+		nxt = curr->next;
+		curr->next=prev;
+		prev = curr;
+		curr = nxt;
+	}
+	if(curr && curr!=curr1){
+		curr1->next = curr;
+	}
+	return prev;
+}
+
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+	// Write your code here.
+	if(!head || !head->next) return head;
+	Node* temp = head;
+	Node* prev = head;
+	for(int i=0;i<n && temp;i++){
+		if(!b[i]) continue;
+		if(temp==head){
+			head = ReverseK(temp,b[i]);
+			temp = head;
+		}
+		else{
+			prev->next = ReverseK(temp,b[i]);
+			temp = prev->next;
+		}
+		while(temp && b[i]--){
+			prev = temp;
+			temp = temp->next;
+		} 
+	}
+	return head;
+}
