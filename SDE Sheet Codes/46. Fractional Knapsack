@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+
+static bool cmp(pair<int,int>&F,pair<int,int>&S){
+    return ((double)F.second/(double)F.first) > ((double)S.second/(double)S.first); 
+}
+
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    // ITEMS contains {weight, value} pairs.
+    sort(items.begin(),items.end(),cmp);
+    double ans=0;
+    for(auto it:items){
+        if(w >= it.first){
+            w-=it.first;
+            ans += it.second;
+        }
+        else{
+            double price = ((double)it.second/(double)it.first);
+            ans += (double)(price*w);
+            w=0;
+            break;
+        }
+    }
+    return ans;
+}
