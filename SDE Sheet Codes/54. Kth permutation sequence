@@ -1,0 +1,30 @@
+string kthPermutation(int n, int k) {
+    // Write your code here.
+    string s;
+    int parts=1;
+    for(int i=1;i<n;i++){
+        parts *=i;
+        s+=to_string(i);
+    }
+    s+=to_string(n);
+    
+    // TC -> N*N!
+    // for(int i=1;i<k;i++){
+    //     s = nxt_per(s);
+    // }
+
+    // return s;
+
+    // TC -> N^2
+    string ans = "";
+    k-=1;
+    while(s.size()){
+        int block = k/parts;
+        ans+=s[block];
+        k %= parts;
+        s.erase(s.begin()+block);
+        if(s.size())
+        parts/=s.size();
+    }
+    return ans;
+}
