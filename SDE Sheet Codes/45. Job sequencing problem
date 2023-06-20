@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+
+static bool cmp(vector<int>&F,vector<int>&S){
+    return F[1] > S[1];
+}
+
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    // Write your code here
+    int n = jobs.size();
+    sort(jobs.begin(),jobs.end(),cmp);
+    int maxi_dead = -1;
+    for(auto it:jobs){
+        maxi_dead = max(maxi_dead,it[0]);
+    }
+
+    vector<int>seq(maxi_dead+1,-1);
+
+    int prof=0;
+    for(int i=0;i<n;i++){
+        for(int j=jobs[i][0];j>0;j--){
+            if(seq[j]==-1){
+                prof += jobs[i][1];
+                seq[j] = i;
+                break;
+            }
+        }
+    }
+
+    return prof;
+}
